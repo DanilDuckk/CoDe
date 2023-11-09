@@ -1,0 +1,85 @@
+import nl.saxion.app.SaxionApp;
+
+import java.awt.*;
+import java.util.ArrayList;
+
+public class Application implements Runnable {
+
+    public static void main(String[] args) {
+        SaxionApp.start(new Application(), 1024, 768);
+    }
+
+    public void run() {
+        ArrayList<String> letters = new ArrayList<>();
+        letters.add("C");
+        letters.add("D");
+        letters.add("H");
+        letters.add("S");
+        int firstPlayerBalance = 100;
+        int secondPlayerBalance = 100;
+        int fristPlayerIndex;
+        int secondPlayerIndex;
+        int fristPlayerIndex1;
+        int secondPlayerIndex1;
+        Card card = new Card();
+        SaxionApp.printLine("Frist player balance: " + firstPlayerBalance);
+        SaxionApp.printLine("Frist player balance: " + secondPlayerBalance);
+        while (true) {
+            SaxionApp.drawText("First player", 400, 100, 25);
+            SaxionApp.drawText("Second player", 800, 100, 25);
+            fristPlayerIndex = SaxionApp.getRandomValueBetween(1, 14);
+            secondPlayerIndex = SaxionApp.getRandomValueBetween(1, 14);
+            fristPlayerIndex1 = SaxionApp.getRandomValueBetween(0, 4);
+            secondPlayerIndex1 = SaxionApp.getRandomValueBetween(0, 4);
+
+            SaxionApp.drawImage("C:\\Users\\DanBS\\IdeaProjects\\Problem Solving (week 7)\\ProblemSolving\\Exercise4\\deck\\" + fristPlayerIndex + letters.get(fristPlayerIndex1) + ".jpg", 400, 150);
+            SaxionApp.drawImage("C:\\Users\\DanBS\\IdeaProjects\\Problem Solving (week 7)\\ProblemSolving\\Exercise4\\deck\\" + secondPlayerIndex + letters.get(secondPlayerIndex1) + ".jpg", 800, 150);
+
+            if (secondPlayerIndex > fristPlayerIndex) {
+                SaxionApp.printLine("Second player gets + 10. Balance: " + secondPlayerBalance);
+                SaxionApp.printLine("First player gets - 10. Balance: " + firstPlayerBalance);
+                SaxionApp.drawText("Second player won!", 550, 300, 25);
+                secondPlayerBalance = secondPlayerBalance + 10;
+                firstPlayerBalance = firstPlayerBalance - 10;
+
+            } else if (fristPlayerIndex == secondPlayerIndex) {
+                SaxionApp.drawText("Draw!", 550, 300, 25);
+
+            } else if (fristPlayerIndex == 1) {
+                SaxionApp.printLine("First player gets + 10. Balance: " + firstPlayerBalance);
+                SaxionApp.printLine("Second player gets - 10. Balance: " + secondPlayerBalance);
+                SaxionApp.drawText("First player won!", 550, 300, 25);
+                firstPlayerBalance = firstPlayerBalance + 10;
+                secondPlayerBalance = secondPlayerBalance - 10;
+            } else if (secondPlayerIndex == 1) {
+                SaxionApp.printLine("Second player gets + 10. Balance: " + secondPlayerBalance);
+                SaxionApp.printLine("First player gets - 10. Balance: " + firstPlayerBalance);
+                SaxionApp.drawText("Second player won!", 550, 300, 25);
+                secondPlayerBalance = secondPlayerBalance + 10;
+                firstPlayerBalance = firstPlayerBalance - 10;
+            } else {
+                SaxionApp.printLine("First player gets + 10. Balance: " + firstPlayerBalance);
+                SaxionApp.printLine("Second player gets - 10. Balance: " + secondPlayerBalance);
+                SaxionApp.drawText("First player won!", 550, 300, 25);
+                firstPlayerBalance = firstPlayerBalance + 10;
+                secondPlayerBalance = secondPlayerBalance - 10;
+            }
+
+            SaxionApp.sleep(2);
+            SaxionApp.clear();
+            if (secondPlayerBalance == 0) {
+                SaxionApp.drawText("Second player run out of balance!", 550, 300, 25);
+                SaxionApp.printLine("Game will close automatically in 5 seconds", Color.yellow);
+                SaxionApp.sleep(5);
+                System.exit(0);
+            } else if (firstPlayerBalance == 0) {
+                SaxionApp.drawText("First player run out of balance!", 550, 300, 25);
+                SaxionApp.printLine("Game will close automatically in 5 seconds", Color.yellow);
+                SaxionApp.sleep(5);
+                System.exit(0);
+            }
+
+
+        }
+    }
+}
